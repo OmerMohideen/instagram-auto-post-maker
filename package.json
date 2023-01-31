@@ -1,0 +1,34 @@
+{
+  "name": "instagram-auto-poster",
+  "version": "1.0.0",
+  "description": " Create posts with qoutes and upload to instagram automatically",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OmerMohideen/instagram-auto-poster.git"
+  },
+  "keywords": [
+    "instagram",
+    "auto",
+    "poster"
+  ],
+  "author": "Omer Mohideen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/OmerMohideen/instagram-auto-poster/issues"
+  },
+  "homepage": "https://github.com/OmerMohideen/instagram-auto-poster#readme",
+  "dependencies": {
+    "axios": "^1.2.6",
+    "canvas": "^2.11.0",
+    "cheerio": "^1.0.0-rc.12",
+    "image-size": "^1.0.2",
+    "imagesize": "^1.0.0",
+    "jimp": "^0.16.2",
+    "request": "^2.88.2",
+    "unirest": "^0.6.0"
+  }
+}
