@@ -1,16 +1,11 @@
 const { createCanvas, loadImage } = require("canvas");
 const jimp = require("jimp");
-const { getBackgroundImage } = require("./BackgroundGenerator");
-const { rgba2hex } = require("./RGBAtoHex");
 const { drawWords } = require("./DrawWord");
 
 async function draw(quote, img) {
   const canvas = createCanvas(1080, 1080);
   const ctx = canvas.getContext("2d");
-  const rgba = await getBackgroundImage(img);
   const i = await loadImage(img);
-  ctx.fillStyle = "#" + rgba2hex(rgba.r, rgba.g, rgba.b, rgba.a);
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
   let scale = Math.max(canvas.width / i.width, canvas.height / i.height);
   let xx = canvas.width / 2 - (i.width / 2) * scale;
   let yy = canvas.height / 2 - (i.height / 2) * scale;
@@ -23,9 +18,9 @@ async function draw(quote, img) {
   ctx.font = `bold 25px Sans`;
   ctx.fillStyle = `#FFFFFF`;
   ctx.textAlign = "end";
-  ctx.fillText(`${quote.character} •`, 1050, 1050);
+  ctx.fillText(`${quote.character} •  `, 1050, 1050);
   ctx.textAlign = "start";
-  ctx.fillText(`• ${quote.anime}`, 20, 1050);
+  ctx.fillText(`  • ${quote.anime}`, 20, 1050);
   ctx.font = `bold 40px Sans`;
   const words = quote.quote.split(" ");
   drawWords(ctx, 50, 850 - (words.length / 6) * 10, 1000, 40, 30, words);

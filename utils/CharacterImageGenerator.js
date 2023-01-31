@@ -1,8 +1,10 @@
 const unirest = require("unirest");
 const cheerio = require("cheerio");
 
-async function getCharacterImage(character) {
+async function getCharacterImage(character, anime) {
   const url = `https://www.google.com/search?q=${character
+    .split(" ")
+    .join("+")}+${anime
     .split(" ")
     .join(
       "+"
