@@ -1,18 +1,34 @@
 const { getCharacterImage } = require("./utils/CharacterImageGenerator");
 const { getQuote } = require("./utils/QuoteGenerator");
-const { draw } = require("./utils/DrawImage");
+const { drawImage } = require("./utils/DrawImage");
+const {
+  max_quote_words,
+  min_quote_words,
+  api_quote_key,
+  api_series_key,
+  api_character_key,
+} = require("./config.json");
 
 class Post {
   async run() {
     let quote = await getQuote();
-    while (countWords(quote.quote) > 50) {
+    while (
+      countWords(quote[api_quote_key]) >= max_quote_words ||
+      countWords(quote[api_quote_key]) <= min_quote_words
+    ) {
       quote = await getQuote();
-      if (countWords(quote.quote) < 50) {
+      if (
+        countWords(quote[api_quote_key]) <= max_quote_words &&
+        countWords(quote[api_quote_key]) >= min_quote_words
+      ) {
         break;
       }
     }
-    const imageUrl = await getCharacterImage(quote.character, quote.anime);
-    await draw(quote, imageUrl.original);
+    const imageUrl = await getCharacterImage(
+      quote[api_character_key],
+      quote[api_series_key]
+    );
+    await drawImage(quote, imageUrl.original);
   }
 }
 

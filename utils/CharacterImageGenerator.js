@@ -1,14 +1,28 @@
 const unirest = require("unirest");
 const cheerio = require("cheerio");
+const {
+  extra_google_search_keywords,
+  custom_search,
+  custom_search_keywords,
+} = require("../config.json");
 
-async function getCharacterImage(character, anime) {
-  const url = `https://www.google.com/search?q=${character
-    .split(" ")
-    .join("+")}+${anime
-    .split(" ")
-    .join(
-      "+"
-    )}+pfp&sxsrf=AJOqlzWZHt0w6gihLZl9gDkdiR_I-xwYZw:1675169752083&source=lnms&tbm=isch&sa=X&ved=2ahUKEwizrYvQ7fH8AhVaS2wGHSFvBeUQ_AUoAXoECAEQAw&biw=1920&bih=1008&dpr=1&asearch=ichunk&async=_id:rg_s,_pms:s,_fmt:pc&sourceid=chrome&ie=UTF-8`;
+async function getCharacterImage(character, series) {
+  let url = "";
+  if (custom_search) {
+    url = `https://www.google.com/search?q=${custom_search_keywords
+      .split(" ")
+      .join(
+        "+"
+      )}&sxsrf=AJOqlzWZHt0w6gihLZl9gDkdiR_I-xwYZw:1675169752083&source=lnms&tbm=isch&sa=X&ved=2ahUKEwizrYvQ7fH8AhVaS2wGHSFvBeUQ_AUoAXoECAEQAw&biw=1920&bih=1008&dpr=1&asearch=ichunk&async=_id:rg_s,_pms:s,_fmt:pc&sourceid=chrome&ie=UTF-8`;
+  } else {
+    url = `https://www.google.com/search?q=${character
+      .split(" ")
+      .join("+")}+${series.split(" ").join("+")}+${extra_google_search_keywords
+      .split(" ")
+      .join(
+        "+"
+      )}&sxsrf=AJOqlzWZHt0w6gihLZl9gDkdiR_I-xwYZw:1675169752083&source=lnms&tbm=isch&sa=X&ved=2ahUKEwizrYvQ7fH8AhVaS2wGHSFvBeUQ_AUoAXoECAEQAw&biw=1920&bih=1008&dpr=1&asearch=ichunk&async=_id:rg_s,_pms:s,_fmt:pc&sourceid=chrome&ie=UTF-8`;
+  }
 
   const selectRandom = () => {
     const userAgents = [

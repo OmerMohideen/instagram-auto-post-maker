@@ -2,7 +2,7 @@ const { createCanvas, loadImage } = require("canvas");
 const jimp = require("jimp");
 const { drawWords } = require("./DrawWord");
 
-async function draw(quote, img) {
+async function drawImage(quote, img) {
   const canvas = createCanvas(1080, 1080);
   const ctx = canvas.getContext("2d");
   const i = await loadImage(img);
@@ -29,4 +29,4 @@ async function draw(quote, img) {
   return image.write("image.jpg");
 }
 
-module.exports = { draw };
+module.exports = { drawImage };
