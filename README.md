@@ -1,4 +1,4 @@
-# instagram-auto-poster
+# instagram-auto-post-maker
 
 Create posts with qoutes and upload to instagram automatically
 
