@@ -11,11 +11,13 @@ const {
 
 class Post {
   async run() {
+    console.log("Generating Quote from api...");
     let quote = await getQuote();
     while (
       countWords(quote[api_quote_key]) >= max_quote_words ||
       countWords(quote[api_quote_key]) <= min_quote_words
     ) {
+      console.log("Regenerating Quote from api...");
       quote = await getQuote();
       if (
         countWords(quote[api_quote_key]) <= max_quote_words &&
@@ -24,10 +26,12 @@ class Post {
         break;
       }
     }
+    console.log("Finding for a Image 🔎");
     const imageUrl = await getCharacterImage(
       quote[api_character_key],
       quote[api_series_key]
     );
+    console.log("Drawing on canvas 🎨");
     await drawImage(quote, imageUrl.original);
   }
 }

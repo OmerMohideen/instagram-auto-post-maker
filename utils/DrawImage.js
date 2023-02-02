@@ -26,6 +26,7 @@ async function drawImage(quote, img) {
   drawWords(ctx, 50, 850 - (words.length / 6) * 10, 1000, 40, 30, words);
   const image = await jimp.read(canvas.toBuffer());
   image.dither565();
+  console.log("Saving image...");
   return image.write("image.jpg");
 }
 

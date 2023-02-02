@@ -4,7 +4,7 @@
     "api_series_key": "anime",
     "api_character_key": "character",
     "max_quote_words": 50,
-    "min_quote_words": 30,
+    "min_quote_words": 20,
     "custom_search": false,
     "custom_search_keywords": "Naruto Baka",
     "extra_google_search_keywords": "4k pfp"
