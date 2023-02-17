@@ -35,7 +35,7 @@ class PostMaker {
       countWords(quote[this.api_quote_key]) <= this.min_quote_words
     ) {
       console.log("Regenerating Quote from api...");
-      quote = await getQuote();
+      quote = await getQuote(this.quote_generator_api);
       if (
         countWords(quote[this.api_quote_key]) <= this.max_quote_words &&
         countWords(quote[this.api_quote_key]) >= this.min_quote_words

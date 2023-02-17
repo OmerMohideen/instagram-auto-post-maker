@@ -12,10 +12,10 @@ const { effectHandler } = require("./EffectHandler");
  */
 async function drawImage(quote, character, series, img, template) {
   const color = getGradient();
-  const savefile = `./images/${fs.readdirSync("./images/").length + 1}.jpg`;
   if (!fs.existsSync("./images")) {
     fs.mkdirSync("./images");
   }
+  const savefile = `./images/${fs.readdirSync("./images/").length + 1}.jpg`;
   nodeHtmlToImage({
     output: savefile,
     html: fs.readFileSync(template).toString(),
