@@ -1,0 +1,41 @@
+<!-- dither565 -->
+<!-- gaussian(1) -->
+<html>
+  <head>
+    <style>
+      body {
+        width: 1080px;
+        height: 1080px;
+      }
+      .wrapper {
+        background-color: crimson;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: whitesmoke;
+        font-size: 40px;
+        font-weight: bold;
+      }
+      .quote {
+        display: flex;
+        flex-direction: column;
+      }
+      .author {
+        font-size: 20px;
+        opacity: 0.9;
+        text-align: end;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div class="quote">
+        {{quote}}
+        <div class="author">{{author}}</div>
+      </div>
+    </div>
+  </body>
+</html>

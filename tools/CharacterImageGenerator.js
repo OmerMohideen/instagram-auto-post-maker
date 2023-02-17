@@ -1,13 +1,23 @@
 const unirest = require("unirest");
 const cheerio = require("cheerio");
-const {
+const allowed_extenstions = ["png", "jpg", "jpeg", "gif"];
+
+/**
+ * @param {string} character
+ * @param {string} series
+ * @param {string} extra_google_search_keywords
+ * @param {boolean} custom_search
+ * @param {string} custom_search_keywords
+ */
+async function getCharacterImage(
+  character,
+  series,
   extra_google_search_keywords,
   custom_search,
-  custom_search_keywords,
-} = require("../config.json");
-
-async function getCharacterImage(character, series) {
+  custom_search_keywords
+) {
   let url = "";
+  if (series === undefined) series = "";
   if (custom_search) {
     url = `https://www.google.com/search?q=${custom_search_keywords
       .split(" ")
@@ -44,22 +54,35 @@ async function getCharacterImage(character, series) {
     .get(url)
     .headers(header)
     .then((response) => {
-      let $ = cheerio.load(response.body);
+      let $ = cheerio.load(response.body.toString("utf8"));
       let images_results = [];
       $("div.rg_bx").each((i, el) => {
         let json_string = $(el).find(".rg_meta").text();
-        images_results.push({
-          title: $(el).find(".iKjWAf .mVDMnf").text(),
-          source: $(el).find(".iKjWAf .FnqxG").text(),
-          link: JSON.parse(json_string).ru,
-          original: JSON.parse(json_string).ou,
-          thumbnail: $(el).find(".rg_l img").attr("src")
-            ? $(el).find(".rg_l img").attr("src")
-            : $(el).find(".rg_l img").attr("data-src"),
-        });
+        if (
+          allowed_extenstions.includes(
+            get_url_extension(JSON.parse(json_string).ou)
+          )
+        ) {
+          images_results.push({
+            title: $(el).find(".iKjWAf .mVDMnf").text(),
+            source: $(el).find(".iKjWAf .FnqxG").text(),
+            link: JSON.parse(json_string).ru,
+            original: JSON.parse(json_string).ou,
+            thumbnail: $(el).find(".rg_l img").attr("src")
+              ? $(el).find(".rg_l img").attr("src")
+              : $(el).find(".rg_l img").attr("data-src"),
+          });
+        }
       });
       return images_results[Math.floor(Math.random() * 10)];
     });
+}
+
+/**
+ * @param {string} url
+ */
+function get_url_extension(url) {
+  return url.split(/[#?]/)[0].split(".").pop().trim();
 }
 
 module.exports = { getCharacterImage };
